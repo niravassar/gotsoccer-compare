@@ -1,4 +1,4 @@
-package com.team.transfer.exception;
+package com.gotsoccer.compare.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

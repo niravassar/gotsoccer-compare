@@ -1,4 +1,4 @@
-package com.team.transfer.controller;
+package com.gotsoccer.compare.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
