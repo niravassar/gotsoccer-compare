@@ -2,6 +2,7 @@ package com.gotsoccer.compare;
 
 import com.gotsoccer.compare.sample.ExcelDataToListOfObjectsPOIJI;
 import com.gotsoccer.compare.sample.FoodInfo;
+import com.gotsoccer.compare.sample.Game;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Diff;
@@ -9,12 +10,13 @@ import org.javers.core.diff.changetype.ValueChange;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PoiijiTest {
+public class PoiijiPocTest {
 
     @Test
     public void whenParsingExcelFileWithPOIJI_thenConvertsToList() {
@@ -44,5 +46,37 @@ public class PoiijiTest {
 
         assertThat(foodInfoList.get(0).getDate()).isEqualTo("24/02/2024");
         assertThat(foodInfoList.get(0).getTime()).isEqualTo("09:00 CST");
+    }
+
+    @Test
+    public void compareByGameIdNumberDifference_gameChanges() {
+        List<Game> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/main/resources/schedule.xls");
+        List<Game> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/main/resources/schedule-rainout.xls");
+        Javers javers = JaversBuilder.javers().build();
+        List<ValueChange> valueChanges = new ArrayList<>();
+
+        for (Game game : schedule) {
+            Game matchedRainGame = scheduleRainout.stream().filter( rainOutGame -> rainOutGame.getMatchNumber() == game.getMatchNumber()).findFirst().orElseThrow();
+            Diff diff = javers.compare(game, matchedRainGame);
+            if (diff.hasChanges()) {
+                valueChanges = diff.getChangesByType(ValueChange.class);
+            }
+        }
+
+        assertThat(valueChanges.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void compareByGameIdNumber_newGames() {
+        List<Game> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/main/resources/schedule.xls");
+        List<Game> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/main/resources/schedule-rainout.xls");
+        List<Game> newGames = new ArrayList<>();
+        for (Game rainGame : scheduleRainout) {
+            Game matchedGame = schedule.stream().filter(game -> game.getMatchNumber() == rainGame.getMatchNumber()).findFirst().orElse(null);
+            if (matchedGame == null) {
+                newGames.add(rainGame);
+            }
+        }
+        assertThat(newGames).hasSize(1);
     }
 }
