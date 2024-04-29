@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PoiijiTest {
 
     @Test
-    public void whenParsingExcelFileWithPOIJI_thenConvertsToList() throws IOException {
+    public void whenParsingExcelFileWithPOIJI_thenConvertsToList() {
         List<FoodInfo> foodInfoList = ExcelDataToListOfObjectsPOIJI.excelDataToListOfObjets_withPOIJI("src/main/resources/food_info.xlsx");
 
         assertEquals("Beverages", foodInfoList.get(0).getCategory());
@@ -36,5 +36,13 @@ public class PoiijiTest {
         assertThat(change.getPropertyName()).isEqualTo("calories");
         assertThat(change.getLeft()).isEqualTo(210.0);
         assertThat(change.getRight()).isEqualTo(999.0);
+    }
+
+    @Test
+    public void parseDateField() {
+        List<FoodInfo> foodInfoList = ExcelDataToListOfObjectsPOIJI.excelDataToListOfObjets_withPOIJI("src/main/resources/food_info.xlsx");
+
+        assertThat(foodInfoList.get(0).getDate()).isEqualTo("24/02/2024");
+        assertThat(foodInfoList.get(0).getTime()).isEqualTo("09:00 CST");
     }
 }
