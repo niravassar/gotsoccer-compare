@@ -1,4 +1,4 @@
-package com.gotsoccer.compare.sample;
+package com.gotsoccer.compare.domain;
 
 import com.poiji.annotation.ExcelCellName;
 import lombok.AllArgsConstructor;

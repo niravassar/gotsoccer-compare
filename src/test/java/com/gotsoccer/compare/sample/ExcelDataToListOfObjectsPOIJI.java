@@ -1,5 +1,6 @@
 package com.gotsoccer.compare.sample;
 
+import com.gotsoccer.compare.domain.Game;
 import com.poiji.bind.Poiji;
 
 import java.io.File;
