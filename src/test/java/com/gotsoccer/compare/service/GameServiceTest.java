@@ -1,5 +1,6 @@
 package com.gotsoccer.compare.service;
 
+import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
 import org.javers.core.diff.changetype.ValueChange;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,24 @@ class GameServiceTest {
     @Test
     void compareScheduleAllNew() {
         assertThat(gameService.compareSchedule(BEFORE_FILE, ALL_NEW_FILE)).isEmpty();
+    }
+
+    @Test
+    void compareForNewGamesDetectGame() {
+        Game game = gameService.compareForNewGames(BEFORE_FILE, AFTER_FILE).get(0);
+        assertThat(game.getMatchNumber()).isEqualTo(111);
+        assertThat(game.getHomeTeam()).isEqualTo("GSSA 14G Longhorms");
+    }
+
+    @Test
+    void compareForNewGamesNoChanges() {
+        assertThat(gameService.compareForNewGames(BEFORE_FILE, BEFORE_FILE)).isEmpty();
+    }
+
+    @Test
+    void compareForNewGamesAllNew() {
+        List<Game> newGames = gameService.compareForNewGames(BEFORE_FILE, ALL_NEW_FILE);
+        assertThat(newGames).hasSize(4);
     }
 
 }

@@ -31,6 +31,23 @@ public class GameService {
         return gameChanges;
     }
 
+    List<Game> compareForNewGames(String beforeFileName, String afterFileName) {
+        List<Game> beforeGames = getGamesWithPoiji(beforeFileName);
+        List<Game> afterGames = getGamesWithPoiji(afterFileName);
+        List<Game> newGames = new ArrayList<>();
+
+        for (Game afterGame : afterGames) {
+            Game matchedGame = beforeGames.stream()
+                    .filter(beforeGame -> beforeGame.getMatchNumber() == afterGame.getMatchNumber())
+                    .findFirst().
+                    orElse(null);
+            if (matchedGame == null) {
+                newGames.add(afterGame);
+            }
+        }
+        return newGames;
+    }
+
     private void captureDiff(Game game, Game matchAfterGame, List<GameChange> gameChanges) {
         Javers javers = JaversBuilder.javers().build();
         Diff diff = javers.compare(game, matchAfterGame);
