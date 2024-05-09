@@ -17,7 +17,7 @@ public class GotSoccerCompareController {
     }
 
     @PostMapping("/gotsoccer/upload")
-    public String upload(@RequestParam("file")MultipartFile multipartFile) {
+    public String upload(@RequestParam("files")MultipartFile[] multipartFiles) {
         return "file-hello";
     }
 }
