@@ -2,11 +2,13 @@ package com.gotsoccer.compare.service;
 
 import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
+import com.gotsoccer.compare.domain.GameValueChange;
 import com.poiji.bind.Poiji;
 import lombok.AllArgsConstructor;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Diff;
+import org.javers.core.diff.changetype.ValueChange;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -26,7 +28,7 @@ public class GameService {
             afterGames.stream()
                     .filter(afterGame -> afterGame.getMatchNumber() == game.getMatchNumber())
                     .findFirst()
-                    .ifPresent(matchAfterGame -> captureDiff(game, matchAfterGame, gameChanges));
+                    .ifPresent(matchAfterGame -> captureValueChanges(game, matchAfterGame, gameChanges));
         }
         return gameChanges;
     }
@@ -48,11 +50,18 @@ public class GameService {
         return newGames;
     }
 
-    private void captureDiff(Game game, Game matchAfterGame, List<GameChange> gameChanges) {
+    private void captureValueChanges(Game game, Game matchAfterGame, List<GameChange> gameChanges) {
         Javers javers = JaversBuilder.javers().build();
         Diff diff = javers.compare(game, matchAfterGame);
         if(diff.hasChanges()) {
-            gameChanges.add(new GameChange(game.getMatchNumber(), diff));
+            List<ValueChange> valueChanges = diff.getChangesByType(ValueChange.class);
+            List<GameValueChange> gameValueChanges = valueChanges.stream()
+                    .map(valueChange -> GameValueChange.builder()
+                            .propertyName(valueChange.getPropertyName())
+                            .left(valueChange.getLeft())
+                            .right(valueChange.getRight()).build())
+                    .toList();
+            gameChanges.add(new GameChange(game.getMatchNumber(), gameValueChanges));
         }
     }
 

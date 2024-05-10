@@ -2,7 +2,7 @@ package com.gotsoccer.compare.service;
 
 import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
-import org.javers.core.diff.changetype.ValueChange;
+import com.gotsoccer.compare.domain.GameValueChange;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,10 +27,10 @@ class GameServiceTest {
     void compareScheduleDetectChanges() {
         GameChange gameChange =  gameService.compareSchedule(BEFORE_FILE, AFTER_FILE).get(0);
         assertThat(gameChange.getMatchNumber()).isEqualTo(139);
-        List<ValueChange> valueChanges = gameChange.getDiff().getChangesByType(ValueChange.class);
-        assertThat(valueChanges).hasSize(3);
+        List<GameValueChange> gameValueChanges = gameChange.getGameValueChanges();
+        assertThat(gameValueChanges).hasSize(3);
         List.of("date", "time", "location").forEach( s ->
-                assertThat(valueChanges.stream().filter(v -> v.getPropertyName().equals(s)).findFirst().orElseThrow()).isNotNull()
+                assertThat(gameValueChanges.stream().filter(gvc -> gvc.getPropertyName().equals(s)).findFirst().orElseThrow()).isNotNull()
         );
     }
 
