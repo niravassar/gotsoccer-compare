@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GameService {
 
-    List<GameChange> compareSchedule(String beforeFileName, String afterFileName) {
+    public List<GameChange> compareSchedule(String beforeFileName, String afterFileName) {
         List<Game> beforeGames = getGamesWithPoiji(beforeFileName);
         List<Game> afterGames = getGamesWithPoiji(afterFileName);
         List<GameChange> gameChanges = new ArrayList<>();
@@ -31,7 +31,7 @@ public class GameService {
         return gameChanges;
     }
 
-    List<Game> compareForNewGames(String beforeFileName, String afterFileName) {
+    public List<Game> compareForNewGames(String beforeFileName, String afterFileName) {
         List<Game> beforeGames = getGamesWithPoiji(beforeFileName);
         List<Game> afterGames = getGamesWithPoiji(afterFileName);
         List<Game> newGames = new ArrayList<>();

@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
-public class GotSoccerCompareController {
+public class CompareController {
 
     @GetMapping("/gotsoccer/compare")
     public String getAllTeams() {
@@ -17,7 +19,7 @@ public class GotSoccerCompareController {
     }
 
     @PostMapping("/gotsoccer/upload")
-    public String upload(@RequestParam("files")MultipartFile[] multipartFiles) {
+    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles) {
         return "file-hello";
     }
 }

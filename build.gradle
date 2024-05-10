@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.jeasy:easy-random-core:5.0.0'
 	implementation 'com.github.ozlerhakan:poiji:4.5.0'
 	implementation 'org.javers:javers-spring-boot-starter-sql:7.4.2'
+	implementation 'commons-io:commons-io:2.15.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
