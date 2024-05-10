@@ -2,8 +2,10 @@ package com.gotsoccer.compare.bdd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.GameValueChange;
+import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.utils.MockUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +37,23 @@ class BddTest {
         MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-rainout.xls");
 
         MvcResult mvcResult = mockMvc.perform(multipart("/gotsoccer/upload").file(beforeMpfGames).file(afterMpfGames)).andExpect(status().isOk()).andReturn();
-        List<GameChange> gameChanges = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
+        ScheduleChanges scheduleChanges  = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
 
+        assertGameChanges(scheduleChanges.getGameChanges());
+        assertNewGames(scheduleChanges.getNewGames());
+    }
+
+    private void assertGameChanges(List<GameChange> gameChanges) {
         assertThat(gameChanges).hasSize(1);
         List<GameValueChange> gameValueChanges =  gameChanges.get(0).getGameValueChanges();
         assertThat(gameChanges.get(0).getGameValueChanges()).hasSize(3);
         List.of("date", "time", "location").forEach( s ->
                 assertThat(gameValueChanges.stream().filter(gvc -> gvc.getPropertyName().equals(s)).findFirst().orElseThrow()).isNotNull()
         );
+    }
+
+    private void assertNewGames(List<Game> games) {
+        assertThat(games).hasSize(1);
+        assertThat(games.get(0).getMatchNumber() == 111);
     }
 }

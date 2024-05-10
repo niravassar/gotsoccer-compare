@@ -2,10 +2,12 @@ package com.gotsoccer.compare.domain;
 
 import com.poiji.annotation.ExcelCellName;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Game {

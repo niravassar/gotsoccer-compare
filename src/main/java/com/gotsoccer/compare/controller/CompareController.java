@@ -1,6 +1,8 @@
 package com.gotsoccer.compare.controller;
 
+import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
+import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -26,9 +28,11 @@ public class CompareController {
     }
 
     @PostMapping("/gotsoccer/upload")
-    public List<GameChange> upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
+    public ScheduleChanges upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
         List<String> filenames = copyFileToTempDirectory(multipartFiles);
-        return this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
+        List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
+        List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1));
+        return new ScheduleChanges(gameChanges, newGames);
     }
 
     private List<String> copyFileToTempDirectory(List<MultipartFile> mpFiles) {
