@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameValueChange {
-    private String propertyName;
-    private Object left;
-    private Object right;
+    private String columnName;
+    private Object before;
+    private Object after;
 }

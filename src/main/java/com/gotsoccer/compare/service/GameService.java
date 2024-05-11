@@ -57,9 +57,9 @@ public class GameService {
             List<ValueChange> valueChanges = diff.getChangesByType(ValueChange.class);
             List<GameValueChange> gameValueChanges = valueChanges.stream()
                     .map(valueChange -> GameValueChange.builder()
-                            .propertyName(valueChange.getPropertyName())
-                            .left(valueChange.getLeft())
-                            .right(valueChange.getRight()).build())
+                            .columnName(valueChange.getPropertyName())
+                            .before(valueChange.getLeft())
+                            .after(valueChange.getRight()).build())
                     .toList();
             gameChanges.add(new GameChange(game.getMatchNumber(), gameValueChanges));
         }

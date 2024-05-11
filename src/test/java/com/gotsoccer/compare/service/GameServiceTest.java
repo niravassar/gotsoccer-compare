@@ -30,7 +30,7 @@ class GameServiceTest {
         List<GameValueChange> gameValueChanges = gameChange.getGameValueChanges();
         assertThat(gameValueChanges).hasSize(3);
         List.of("date", "time", "location").forEach( s ->
-                assertThat(gameValueChanges.stream().filter(gvc -> gvc.getPropertyName().equals(s)).findFirst().orElseThrow()).isNotNull()
+                assertThat(gameValueChanges.stream().filter(gvc -> gvc.getColumnName().equals(s)).findFirst().orElseThrow()).isNotNull()
         );
     }
 

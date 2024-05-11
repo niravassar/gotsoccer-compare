@@ -48,7 +48,7 @@ class BddTest {
         List<GameValueChange> gameValueChanges =  gameChanges.get(0).getGameValueChanges();
         assertThat(gameChanges.get(0).getGameValueChanges()).hasSize(3);
         List.of("date", "time", "location").forEach( s ->
-                assertThat(gameValueChanges.stream().filter(gvc -> gvc.getPropertyName().equals(s)).findFirst().orElseThrow()).isNotNull()
+                assertThat(gameValueChanges.stream().filter(gvc -> gvc.getColumnName().equals(s)).findFirst().orElseThrow()).isNotNull()
         );
     }
 
