@@ -27,11 +27,6 @@ public class CompareController {
         return "message";
     }
 
-    @GetMapping("/gotsoccer/compare")
-    public String getAllTeams() {
-        return "hello";
-    }
-
     @PostMapping("/gotsoccer/upload")
     @ResponseBody
     public ScheduleChanges upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {

@@ -9,4 +9,9 @@ class GotSoccerCompareApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
+	@Test
+	public void applicationContextTest() {
+		GotSoccerCompareApplication.main(new String[] {});
+	}
 }

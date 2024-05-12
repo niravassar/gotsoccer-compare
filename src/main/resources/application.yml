@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: gotsoccer-compare
   h2:
     console:
       enabled: true
