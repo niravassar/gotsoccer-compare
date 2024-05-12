@@ -21,6 +21,12 @@ public class CompareController {
 
     private final GameService gameService;
 
+    @GetMapping("/health")
+    @ResponseBody
+    public String getAllTeams() {
+        return "hello";
+    }
+
     @GetMapping("/message")
     public String message(Model model) {
         model.addAttribute("message", "This is a custom message");
