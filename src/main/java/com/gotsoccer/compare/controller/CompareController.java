@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,23 +29,22 @@ public class CompareController {
 
     @PostMapping("/gotsoccer/upload")
     @ResponseBody
-    public ScheduleChanges upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws IOException {
-        List<String> filenames = copyFileToTempDirectory(multipartFiles);
+    public ScheduleChanges upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws Exception {
+        List<String> filenames = copyFilesToTempDirectory(multipartFiles);
         List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
         List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1));
         return new ScheduleChanges(gameChanges, newGames);
     }
 
-    private List<String> copyFileToTempDirectory(List<MultipartFile> mpFiles) {
+    private List<String> copyFilesToTempDirectory(List<MultipartFile> mpFiles) throws Exception {
         File tempDir = FileUtils.getTempDirectory();
-        return mpFiles.stream().map(mpFile -> {
-            try {
-                File file = new File(tempDir.getCanonicalPath() + File.separator + mpFile.getOriginalFilename());
-                mpFile.transferTo(file);
-                return file.getCanonicalPath();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).toList();
+        List<String> filenames = new ArrayList<>();
+        for (MultipartFile mpFile : mpFiles) {
+            File file = new File(tempDir.getCanonicalPath() + File.separator + mpFile.getOriginalFilename());
+            mpFile.transferTo(file);
+            String filename = file.getCanonicalPath();
+            filenames.add(filename);
+        }
+        return filenames;
     }
 }

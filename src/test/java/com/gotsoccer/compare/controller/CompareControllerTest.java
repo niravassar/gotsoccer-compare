@@ -51,5 +51,4 @@ class CompareControllerTest {
         verify(this.gameService, times(1)).compareForNewGames(anyString(), anyString());
         assertThat(scheduleChanges).isEqualTo(expectedScheduledChanges);
     }
-
 }
