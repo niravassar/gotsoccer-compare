@@ -36,7 +36,7 @@ class BddTest {
         MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule.xls");
         MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-rainout.xls");
 
-        MvcResult mvcResult = mockMvc.perform(multipart("/gotsoccer/upload").file(beforeMpfGames).file(afterMpfGames)).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(multipart("/gotsoccer/upload-rest").file(beforeMpfGames).file(afterMpfGames)).andExpect(status().isOk()).andReturn();
         ScheduleChanges scheduleChanges  = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
 
         assertGameChanges(scheduleChanges.getGameChanges());

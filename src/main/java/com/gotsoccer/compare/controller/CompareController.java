@@ -36,13 +36,24 @@ public class CompareController {
         return "message";
     }
 
-    @PostMapping("/gotsoccer/upload")
+    @PostMapping("/gotsoccer/upload-rest")
     @ResponseBody
-    public ScheduleChanges upload(@RequestParam("files") List<MultipartFile> multipartFiles) throws Exception {
+    public ScheduleChanges uploadRest(@RequestParam("files") List<MultipartFile> multipartFiles) throws Exception {
+        return generateScheduleChanges(multipartFiles);
+    }
+
+    @PostMapping("/gotsoccer/upload")
+    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, Model model) throws Exception {
+        ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles);
+        model.addAttribute("scheduleChanges", scheduleChanges);
+        return "message";
+    }
+
+    private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles) throws Exception {
         List<String> filenames = copyFilesToTempDirectory(multipartFiles);
         List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
         List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1));
-        return new ScheduleChanges(null, gameChanges, newGames);
+        return new ScheduleChanges("upload title here", gameChanges, newGames);
     }
 
     private List<String> copyFilesToTempDirectory(List<MultipartFile> mpFiles) throws Exception {
