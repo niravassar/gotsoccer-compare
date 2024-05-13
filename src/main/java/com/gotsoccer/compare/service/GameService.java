@@ -43,7 +43,7 @@ public class GameService {
                     .filter(beforeGame -> beforeGame.getMatchNumber() == afterGame.getMatchNumber())
                     .findFirst().
                     orElse(null);
-            if (matchedGame == null) {
+            if (matchedGame == null && afterGame.getMatchNumber() != 0) {
                 newGames.add(afterGame);
             }
         }

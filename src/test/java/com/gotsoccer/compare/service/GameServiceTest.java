@@ -19,6 +19,7 @@ class GameServiceTest {
     final String BEFORE_FILE = TEST_FILE_PATH + "/schedule.xls";
     final String AFTER_FILE = TEST_FILE_PATH + "/schedule-rainout.xls";
     final String ALL_NEW_FILE = TEST_FILE_PATH + "/schedule-allnew.xls";
+    final String JUNK_FILE = TEST_FILE_PATH + "/junk.xls";
 
     @InjectMocks
     GameService gameService;
@@ -60,6 +61,24 @@ class GameServiceTest {
     void compareForNewGamesAllNew() {
         List<Game> newGames = gameService.compareForNewGames(BEFORE_FILE, ALL_NEW_FILE);
         assertThat(newGames).hasSize(4);
+    }
+
+    @Test
+    void compareBeforeToJunk() {
+        assertThat(gameService.compareSchedule(BEFORE_FILE, JUNK_FILE)).isEmpty();
+        assertThat(gameService.compareForNewGames(BEFORE_FILE, JUNK_FILE)).isEmpty();
+    }
+
+    @Test
+    void compareJunkToJunk() {
+        assertThat(gameService.compareSchedule(JUNK_FILE, JUNK_FILE)).isEmpty();
+        assertThat(gameService.compareForNewGames(JUNK_FILE, JUNK_FILE)).isEmpty();
+    }
+
+    @Test
+    void compareJunkToBefore() {
+        assertThat(gameService.compareSchedule(JUNK_FILE, BEFORE_FILE)).isEmpty();
+        assertThat(gameService.compareForNewGames(JUNK_FILE, BEFORE_FILE)).hasSize(3);
     }
 
 }
