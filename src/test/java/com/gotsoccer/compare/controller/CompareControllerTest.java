@@ -7,6 +7,8 @@ import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
 import com.gotsoccer.compare.utils.MockUtils;
+import org.hamcrest.Matcher;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,13 +16,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CompareController.class)
@@ -50,5 +55,10 @@ class CompareControllerTest {
         verify(this.gameService, times(1)).compareSchedule(anyString(), anyString());
         verify(this.gameService, times(1)).compareForNewGames(anyString(), anyString());
         assertThat(scheduleChanges).isEqualTo(expectedScheduledChanges);
+    }
+
+    @Test
+    void message() throws Exception {
+        mockMvc.perform(get("/message")).andExpect(status().isOk()).andExpect(model().attribute("message", Is.is("nirav was here")));
     }
 }

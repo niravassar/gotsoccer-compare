@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleChanges {
+    private String title;
     private List<GameChange> gameChanges;
     private List<Game> newGames;
 }
