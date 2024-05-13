@@ -24,7 +24,7 @@ public class CompareController {
     @GetMapping("/health")
     @ResponseBody
     public String getAllTeams() {
-        return "hello-nirav";
+        return "hello-rina";
     }
 
     @GetMapping("/message")

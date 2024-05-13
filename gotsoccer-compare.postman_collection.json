@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "e814a3b3-2474-475a-9d85-f259aea0eb75",
+		"name": "gotsoccer-compare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30158554"
+	},
+	"item": [
+		{
+			"name": "upload-local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/Nirav.Assar/Dropbox/HITRUST-transfer/jobs/gotsoccer-compare/src/test/resources/schedule.xls",
+								"/C:/Users/Nirav.Assar/Dropbox/HITRUST-transfer/jobs/gotsoccer-compare/src/test/resources/schedule-rainout.xls"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/gotsoccer/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gotsoccer",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload-prod",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/Nirav.Assar/Dropbox/HITRUST-transfer/jobs/gotsoccer-compare/src/test/resources/schedule.xls",
+								"/C:/Users/Nirav.Assar/Dropbox/HITRUST-transfer/jobs/gotsoccer-compare/src/test/resources/schedule-rainout.xls"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gotsoccer-compare-young-glade-7918.fly.dev/gotsoccer/upload",
+					"protocol": "https",
+					"host": [
+						"gotsoccer-compare-young-glade-7918",
+						"fly",
+						"dev"
+					],
+					"path": [
+						"gotsoccer",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
