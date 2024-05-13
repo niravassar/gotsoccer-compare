@@ -1,0 +1,86 @@
+GOTSOCCER COMPARE
+==========================
+- look up gotsoccer api to get games
+- Idea try to get diff of changes for a league between dates
+	- get api of got soccer league 
+	- find number of games 
+	- find game change 
+	- find additional games 
+
+Actions
+=====================
+- [x] create shell app that runs
+- [x] try poiiji with unit tests
+	- https://github.com/eugenp/tutorials/blob/master/apache-poi-3/src/test/java/com/baeldung/convert/exceldatatolist/ExcelDataToListOfObjectsUnitTest.java
+- [x] create service and unit tests
+- [x] do the new games method and unit tests
+
+General
+--------------------------
+- postman send file
+	https://www.baeldung.com/postman-upload-file-json
+- how to create a ui to upload files 
+	- Vaadin or Thymleaf
+	- https://spring.io/guides/gs/uploading-files
+	- https://www.baeldung.com/spring-file-upload
+- [x] rest api to upload files 
+- [x] how to deploy app on gcp
+- [x] look into javers diff on two rows
+	- https://javers.org/documentation/diff-examples/#compare-valueobjects
+	
+Spring boot withthymleaf
+====================================
+https://www.javatpoint.com/spring-boot-thymeleaf-view
+https://www.baeldung.com/spring-boot-crud-thymeleaf
+
+https://www.baeldung.com/spring-file-upload
+https://github.com/eugenp/tutorials/blob/1098088aa536f97cdf50823abd3050edc596019a/spring-web-modules/spring-mvc-java/src/main/webapp/WEB-INF/view/fileUploadForm.jsp#L31
+
+- [x] change tests and code to return model in the upload method. 
+	- https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
+
+Control layer
+==================
+- [] code for different types of files
+- [] code for files missing for upload 
+	- file is missing
+	- wrong type of file type
+- [x] diff object needs to be parsed the service to be more readable. 
+- [x] add new games to the Game Change
+- [x] install jacoco code coverage stats
+	- ./gradlew jTP
+- [x] look up easy heroki deploy or azure deploy
+
+Documentation
+=====================
+- [] create readme file
+- [] put repo in niravassar github
+- [] create github actions of tests
+- [] create tasks for project
+
+Spring boot with docker file
+-------------------------------------
+https://www.geeksforgeeks.org/spring-boot-creating-docker-image-using-gradle/
+
+on project directory:
+	- docker image build -t app .
+	- docker images
+	- docker run -d -p 8080:8080 -it app 
+	
+Fly.io
+=================================
+https://www.codecentric.de/wissens-hub/blog/spring-boot-flyio	
+
+https://fly.io/dashboard/nirav-assar
+
+install flyctl
+==================
+pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
+- signed up with google
+- fly auth login
+- fly launch
+- fly deploy
+
+- https://fly.io/apps/gotsoccer-compare-young-glade-7918/monitoring
+
+- https://gotsoccer-compare-young-glade-7918.fly.dev/health
