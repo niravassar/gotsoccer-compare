@@ -3,17 +3,33 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Spring Demo Project</title>
+    <title>Gotsoccer Compare</title>
 </head>
-<body>
-<h1 th:text="${message}"></h1>
 
-<table>
-    <tr th:each="game: ${scheduleChanges.newGames}">
-        <td th:text="${game.matchNumber}" />
-        <td th:text="${game.date}" />
-    </tr>
-</table>
+<body>
+    <h2>Game Changes</h2>
+    <th:block th:each="gameChange : ${scheduleChanges.gameChanges}">
+        <h4 th:text="'Match #: ' + ${gameChange.matchNumber}"></h4>
+        <table border="1">
+            <tr>
+                <th>Column Name</th><th>Before</th><th>After</th>
+            </tr>
+            <tr th:each="gameValueChange : ${gameChange.gameValueChanges}">
+                <td th:text="${gameValueChange.columnName}" /><td th:text="${gameValueChange.before}" /><td th:text="${gameValueChange.after}" />
+            </tr>
+        </table>
+    </th:block>
+
+    <h2>New Games</h2>
+    <table border="1">
+        <tr>
+            <th>Match #</th><th>Date</th><th>Time</th><th>Home Team</th><th>Away Team</th><th>Division</th><th>Age</th><th>Location</th>
+        </tr>
+        <tr th:each="game: ${scheduleChanges.newGames}">
+            <td th:text="${game.matchNumber}" /><td th:text="${game.date}" /><td th:text="${game.time}" /><td th:text="${game.homeTeam}" />
+            <td th:text="${game.awayTeam}" /><td th:text="${game.division}" /><td th:text="${game.age}" /><td th:text="${game.location}" />
+        </tr>
+    </table>
 </body>
 </html>
 

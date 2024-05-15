@@ -38,6 +38,8 @@ https://github.com/eugenp/tutorials/blob/1098088aa536f97cdf50823abd3050edc596019
 
 - [x] change tests and code to return model in the upload method. 
 	- https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
+- [x] display the game data
+	- https://www.programiz.com/html/headings
 
 Control layer
 ==================
