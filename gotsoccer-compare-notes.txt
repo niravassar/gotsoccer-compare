@@ -54,7 +54,7 @@ Control layer
 Documentation
 =====================
 - [] create readme file
-- [] put repo in niravassar github
+- [x] put repo in niravassar github
 - [] create github actions of tests
 - [] create tasks for project
 
@@ -75,10 +75,11 @@ https://fly.io/dashboard/nirav-assar
 
 install flyctl
 ==================
-pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
+powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 - signed up with google
 - fly auth login
 - fly launch
+- ./gradlew build
 - fly deploy
 
 - https://fly.io/apps/gotsoccer-compare-young-glade-7918/monitoring

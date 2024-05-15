@@ -30,9 +30,6 @@ public class CompareController {
     @GetMapping("/message")
     public String message(Model model) {
         model.addAttribute("message", "nirav was here");
-        ScheduleChanges scheduleChanges = new ScheduleChanges();
-        scheduleChanges.setTitle("nirav title here");
-        model.addAttribute("scheduleChanges", scheduleChanges);
         return "message";
     }
 
@@ -53,7 +50,7 @@ public class CompareController {
         List<String> filenames = copyFilesToTempDirectory(multipartFiles);
         List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
         List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1));
-        return new ScheduleChanges("upload title here", gameChanges, newGames);
+        return ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
     }
 
     private List<String> copyFilesToTempDirectory(List<MultipartFile> mpFiles) throws Exception {
