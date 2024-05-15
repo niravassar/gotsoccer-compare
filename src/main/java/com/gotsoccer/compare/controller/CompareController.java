@@ -6,12 +6,14 @@ import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class CompareController {
         File tempDir = FileUtils.getTempDirectory();
         List<String> filenames = new ArrayList<>();
         for (MultipartFile mpFile : mpFiles) {
-            File file = new File(tempDir.getCanonicalPath() + File.separator + mpFile.getOriginalFilename());
+            File file = new File(tempDir.getCanonicalPath() + File.separator + RandomStringUtils.randomAlphabetic(3)+"-"+mpFile.getOriginalFilename());
             mpFile.transferTo(file);
             String filename = file.getCanonicalPath();
             filenames.add(filename);
