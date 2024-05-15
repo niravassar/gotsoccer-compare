@@ -35,7 +35,7 @@ class CompareControllerTest {
     void upload() throws Exception {
         List<GameChange> gameChanges = List.of(GameChange.builder().matchNumber(new Random().nextInt()).build());
         List<Game> newGames = List.of(Game.builder().matchNumber(new Random().nextInt()).build());
-        ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().title("upload title here").gameChanges(gameChanges).newGames(newGames).build();
+        ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
         when(this.gameService.compareSchedule(anyString(), anyString())).thenReturn(gameChanges);
         when(this.gameService.compareForNewGames(anyString(), anyString())).thenReturn(newGames);
         MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule.xls");
@@ -53,6 +53,6 @@ class CompareControllerTest {
 
     @Test
     void message() throws Exception {
-        mockMvc.perform(get("/message")).andExpect(status().isOk()).andExpect(model().attribute("message", Is.is("nirav was here")));
+        mockMvc.perform(get("/message")).andExpect(status().isOk()).andExpect(model().attribute("scheduleChanges", IsEqual.equalToObject(ScheduleChanges.builder().build())));
     }
 }
