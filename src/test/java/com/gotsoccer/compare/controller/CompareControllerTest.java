@@ -43,7 +43,7 @@ class CompareControllerTest {
 
         mockMvc.perform(multipart("/gotsoccer/upload").file(beforeMpfGames).file(afterMpfGames))
                 .andExpect(status().isOk())
-                .andExpect(view().name("message"))
+                .andExpect(view().name("upload"))
                 .andExpect(model().attribute("scheduleChanges", IsEqual.equalToObject(expectedScheduledChanges)))
                 .andReturn();
 
@@ -52,7 +52,10 @@ class CompareControllerTest {
     }
 
     @Test
-    void message() throws Exception {
-        mockMvc.perform(get("/message")).andExpect(status().isOk()).andExpect(model().attribute("scheduleChanges", IsEqual.equalToObject(ScheduleChanges.builder().build())));
+    void index() throws Exception {
+        mockMvc.perform(get("/index"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("upload"))
+                .andExpect(model().attribute("scheduleChanges", IsEqual.equalToObject(ScheduleChanges.builder().build())));
     }
 }

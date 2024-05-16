@@ -25,12 +25,6 @@ public class CompareController {
 
     private final GameService gameService;
 
-    @GetMapping("/health")
-    @ResponseBody
-    public String getAllTeams() {
-        return "hello-rina";
-    }
-
     @GetMapping("/index")
     public String upload(Model model) {
         model.addAttribute("scheduleChanges", ScheduleChanges.builder().build());
