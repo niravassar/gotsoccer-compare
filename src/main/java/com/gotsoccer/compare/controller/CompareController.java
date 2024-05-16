@@ -31,10 +31,10 @@ public class CompareController {
         return "hello-rina";
     }
 
-    @GetMapping("/message")
-    public String message(Model model) {
+    @GetMapping("/index")
+    public String upload(Model model) {
         model.addAttribute("scheduleChanges", ScheduleChanges.builder().build());
-        return "message";
+        return "upload";
     }
 
     @PostMapping("/gotsoccer/upload-rest")
@@ -47,7 +47,7 @@ public class CompareController {
     public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, Model model) throws Exception {
         ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles);
         model.addAttribute("scheduleChanges", scheduleChanges);
-        return "message";
+        return "upload";
     }
 
     private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles) throws Exception {

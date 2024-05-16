@@ -7,6 +7,19 @@
 </head>
 
 <body>
+    <h2>Upload Schedules</h2>
+    <div>
+        <form method="POST" enctype="multipart/form-data" action="/gotsoccer/upload">
+            <table>
+                <tr><td>Before Games:</td><td><input type="file" name="files"/></td></tr>
+                <tr><td>After Games:</td><td><input type="file" name="files"/></td></tr>
+                <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <hr>
+
     <h2>Game Changes</h2>
     <div th:if="${scheduleChanges.gameChanges}">
         <th:block th:each="gameChange : ${scheduleChanges.gameChanges}">
@@ -23,6 +36,8 @@
     </div>
     <h4 th:if="${#lists.isEmpty(scheduleChanges.gameChanges)}">No Game Changes</h4>
 
+    <hr>
+
     <h2>New Games</h2>
     <div th:style="${#lists.isEmpty(scheduleChanges.newGames) ? 'display:none;' : 'display:block;'}">
         <table border="1">
@@ -37,8 +52,6 @@
     </div>
     <h4 th:if="${#lists.isEmpty(scheduleChanges.newGames)}">No New Games</h4>
 </body>
-<p>--------------------------------------------------------------</p>
-<!--------------------->
 </html>
 
 

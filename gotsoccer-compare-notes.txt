@@ -40,6 +40,7 @@ https://github.com/eugenp/tutorials/blob/1098088aa536f97cdf50823abd3050edc596019
 	- https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
 - [x] display the game data
 	- https://www.programiz.com/html/headings
+- [] code for upload ui
 
 Control layer
 ==================
@@ -47,11 +48,16 @@ Control layer
 - [] code for files missing for upload 
 	- file is missing
 	- wrong type of file type
+- [] spring login security
 - [x] diff object needs to be parsed the service to be more readable. 
 - [x] add new games to the Game Change
 - [x] install jacoco code coverage stats
 	- ./gradlew jTP
 - [x] look up easy heroki deploy or azure deploy
+
+Upload files
+======================
+https://spring.io/guides/gs/uploading-files
 
 Documentation
 =====================
