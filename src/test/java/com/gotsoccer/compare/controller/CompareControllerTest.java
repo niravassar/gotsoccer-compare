@@ -1,5 +1,6 @@
 package com.gotsoccer.compare.controller;
 
+import com.gotsoccer.compare.config.ApplicationNoSecurity;
 import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.ScheduleChanges;
@@ -11,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -23,6 +26,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CompareController.class)
+@Import(ApplicationNoSecurity.class)
+@ActiveProfiles("test")
 class CompareControllerTest {
 
     @Autowired

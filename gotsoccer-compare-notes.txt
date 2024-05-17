@@ -1,5 +1,7 @@
 GOTSOCCER COMPARE
 ==========================
+localhost:8080/index
+
 - look up gotsoccer api to get games
 - Idea try to get diff of changes for a league between dates
 	- get api of got soccer league 
