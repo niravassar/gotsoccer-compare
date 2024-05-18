@@ -88,6 +88,13 @@ https://www.geeksforgeeks.org/spring-security-in-memory-authentication/
 
 https://youtube.com/playlist?list=PLOGkyEBfK89CHuRrFUFMrRPUqGuQBvHK9&si=XwL9hZCFhDSVIKZ4
 
+	Error
+	--------------------
+	- cannot login on deploy.
+	Error parsing HTTP request header
+2024-05-18T00:57:58Z app[7811701f5525d8] dfw [info]java.io.EOFException: null
+2024-05-18T00:57:58Z app[7811701f5525d8] dfw [info]     at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.fillReadBuffer(NioEndpoint.java:1296) ~[tomcat-embed-core-10.1.19.jar!/:na]
+	- "spring boot security deployed Error parsing HTTP request headerError parsing HTTP request header"
 
 	
 Fly.io
@@ -106,5 +113,10 @@ powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 - fly deploy
 
 - https://fly.io/apps/gotsoccer-compare-young-glade-7918/monitoring
+	- fly logs -a gotsoccer-compare-young-glade-7918
 
-- https://gotsoccer-compare-young-glade-7918.fly.dev/health
+- https://gotsoccer-compare-young-glade-7918.fly.dev/index
+
+Deployment Options
+========================
+https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html
