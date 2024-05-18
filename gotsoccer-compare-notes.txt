@@ -120,3 +120,17 @@ powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 Deployment Options
 ========================
 https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html
+
+Heroku
+https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku
+
+Google
+https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot#0
+
+	war: bootWar
+	- java -jar .\build\libs\gotsoccer-compare-1.0.0.war
+
+
+Windows Service
+=========================
+https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.installing.windows-services
