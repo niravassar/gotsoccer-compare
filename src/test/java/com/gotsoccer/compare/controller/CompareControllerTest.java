@@ -6,7 +6,6 @@ import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
 import com.gotsoccer.compare.utils.MockUtils;
-import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
