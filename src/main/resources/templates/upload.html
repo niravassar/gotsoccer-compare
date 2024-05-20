@@ -7,50 +7,60 @@
 </head>
 
 <body>
-    <h2>Upload Schedules</h2>
-    <div>
-        <form method="POST" enctype="multipart/form-data" action="/gotsoccer/upload">
-            <table>
-                <tr><td>Before Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
-                <tr><td>After Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
-                <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-            </table>
-        </form>
-    </div>
+    <h2>Authenticate</h2>
+    <form action="#" th:action="@{/authenticate}" th:object="${myPassword}" method="post">
+        <p>Password: <input type="text" th:field="*{password}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
 
     <hr>
 
-    <h2>Game Changes</h2>
-    <div th:if="${scheduleChanges.gameChanges}">
-        <th:block th:each="gameChange : ${scheduleChanges.gameChanges}">
-            <h4 th:text="'Match #: ' + ${gameChange.matchNumber}"></h4>
+    <div th:style="${isPasswordAuthenticated ? 'display:block;' : 'display:none;'}">
+        <h2>Upload Schedules</h2>
+        <div>
+            <form method="POST" enctype="multipart/form-data" action="/gotsoccer/upload">
+                <table>
+                    <tr><td>Before Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
+                    <tr><td>After Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
+                    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                </table>
+            </form>
+        </div>
+
+        <hr>
+
+        <h2>Game Changes</h2>
+        <div th:if="${scheduleChanges.gameChanges}">
+            <th:block th:each="gameChange : ${scheduleChanges.gameChanges}">
+                <h4 th:text="'Match #: ' + ${gameChange.matchNumber}"></h4>
+                <table border="1">
+                    <tr>
+                        <th>Column Name</th><th>Before</th><th>After</th>
+                    </tr>
+                    <tr th:each="gameValueChange : ${gameChange.gameValueChanges}">
+                        <td th:text="${gameValueChange.columnName}" /><td th:text="${gameValueChange.before}" /><td th:text="${gameValueChange.after}" />
+                    </tr>
+                </table>
+            </th:block>
+        </div>
+        <h4 th:if="${#lists.isEmpty(scheduleChanges.gameChanges)}">No Game Changes</h4>
+
+        <hr>
+
+        <h2>New Games</h2>
+        <div th:style="${#lists.isEmpty(scheduleChanges.newGames) ? 'display:none;' : 'display:block;'}">
             <table border="1">
                 <tr>
-                    <th>Column Name</th><th>Before</th><th>After</th>
+                    <th>Match #</th><th>Date</th><th>Time</th><th>Home Team</th><th>Away Team</th><th>Division</th><th>Age</th><th>Location</th>
                 </tr>
-                <tr th:each="gameValueChange : ${gameChange.gameValueChanges}">
-                    <td th:text="${gameValueChange.columnName}" /><td th:text="${gameValueChange.before}" /><td th:text="${gameValueChange.after}" />
+                <tr th:each="game: ${scheduleChanges.newGames}">
+                    <td th:text="${game.matchNumber}" /><td th:text="${game.date}" /><td th:text="${game.time}" /><td th:text="${game.homeTeam}" />
+                    <td th:text="${game.awayTeam}" /><td th:text="${game.division}" /><td th:text="${game.age}" /><td th:text="${game.location}" />
                 </tr>
             </table>
-        </th:block>
+        </div>
+        <h4 th:if="${#lists.isEmpty(scheduleChanges.newGames)}">No New Games</h4>
     </div>
-    <h4 th:if="${#lists.isEmpty(scheduleChanges.gameChanges)}">No Game Changes</h4>
-
-    <hr>
-
-    <h2>New Games</h2>
-    <div th:style="${#lists.isEmpty(scheduleChanges.newGames) ? 'display:none;' : 'display:block;'}">
-        <table border="1">
-            <tr>
-                <th>Match #</th><th>Date</th><th>Time</th><th>Home Team</th><th>Away Team</th><th>Division</th><th>Age</th><th>Location</th>
-            </tr>
-            <tr th:each="game: ${scheduleChanges.newGames}">
-                <td th:text="${game.matchNumber}" /><td th:text="${game.date}" /><td th:text="${game.time}" /><td th:text="${game.homeTeam}" />
-                <td th:text="${game.awayTeam}" /><td th:text="${game.division}" /><td th:text="${game.age}" /><td th:text="${game.location}" />
-            </tr>
-        </table>
-    </div>
-    <h4 th:if="${#lists.isEmpty(scheduleChanges.newGames)}">No New Games</h4>
 </body>
 </html>
 

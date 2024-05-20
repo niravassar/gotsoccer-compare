@@ -101,7 +101,8 @@ https://youtube.com/playlist?list=PLOGkyEBfK89CHuRrFUFMrRPUqGuQBvHK9&si=XwL9hZCF
 2024-05-18T00:57:58Z app[7811701f5525d8] dfw [info]     at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.fillReadBuffer(NioEndpoint.java:1296) ~[tomcat-embed-core-10.1.19.jar!/:na]
 	- "spring boot security deployed Error parsing HTTP request headerError parsing HTTP request header"
 
-	
+- created a themleaf hide password which toggles display
+- made security no application to production in ApplicationNoSecurity with @Profile({"test", "default"}). you can custom set the profile with spring.profiles.default.	
 Fly.io
 =================================
 https://www.codecentric.de/wissens-hub/blog/spring-boot-flyio	

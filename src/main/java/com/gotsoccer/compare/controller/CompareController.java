@@ -2,6 +2,7 @@ package com.gotsoccer.compare.controller;
 
 import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
+import com.gotsoccer.compare.domain.MyPassword;
 import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
 import lombok.AllArgsConstructor;
@@ -9,10 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,8 +24,26 @@ public class CompareController {
     private final GameService gameService;
 
     @GetMapping("/index")
-    public String upload(Model model) {
-        model.addAttribute("scheduleChanges", ScheduleChanges.builder().build());
+    public String index(Model model) {
+        instantiateModelAttributesBlank(model);
+        noAuthentication(model);
+        return "upload";
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticate(@ModelAttribute MyPassword myPassword, Model model) {
+        instantiateModelAttributesBlank(model);
+        grantAuthentication(model);
+        return "upload";
+    }
+
+
+    @PostMapping("/gotsoccer/upload")
+    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, Model model) throws Exception {
+        ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles);
+        model.addAttribute("scheduleChanges", scheduleChanges);
+        model.addAttribute("myPassword", MyPassword.builder().build());
+        grantAuthentication(model);
         return "upload";
     }
 
@@ -37,13 +53,19 @@ public class CompareController {
         return generateScheduleChanges(multipartFiles);
     }
 
-    @PostMapping("/gotsoccer/upload")
-    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, Model model) throws Exception {
-        ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles);
-        model.addAttribute("scheduleChanges", scheduleChanges);
-        return "upload";
+    private void instantiateModelAttributesBlank(Model model) {
+        model.addAttribute("scheduleChanges", ScheduleChanges.builder().build());
+        model.addAttribute("myPassword", MyPassword.builder().build());
     }
 
+    private void noAuthentication(Model model) {
+        model.addAttribute("isPasswordAuthenticated", false);
+    }
+
+    private void grantAuthentication(Model model) {
+        model.addAttribute("isPasswordAuthenticated", true);
+    }
+    
     private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles) throws Exception {
         List<String> filenames = copyFilesToTempDirectory(multipartFiles);
         List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
