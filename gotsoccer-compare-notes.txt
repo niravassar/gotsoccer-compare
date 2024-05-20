@@ -49,11 +49,7 @@ https://github.com/eugenp/tutorials/blob/1098088aa536f97cdf50823abd3050edc596019
 
 Control layer
 ==================
-- [] code for different types of files
-- [] code for files missing for upload 
-	- file is missing
-	- wrong type of file type
-- [] spring login security
+- [x] spring login security
 - [x] diff object needs to be parsed the service to be more readable. 
 - [x] add new games to the Game Change
 - [x] install jacoco code coverage stats
@@ -66,10 +62,19 @@ https://spring.io/guides/gs/uploading-files
 
 Documentation
 =====================
-- [] create readme file
 - [x] put repo in niravassar github
-- [] create github actions of tests
-- [] create tasks for project
+- [x] create tasks for project
+	- deploy to google app engine
+	- explore js with password to hide the page
+	- code backend logic for tgs files
+	- refactor to use common game interface for tgs files 
+	- create error page with message
+	- throw exception to go to error page
+	- research what are error pages with http status's 
+	- create github action for running tests 
+	- create readme file
+	- look up how to install java and run jar locally
+	
 
 Spring boot with docker file
 -------------------------------------
