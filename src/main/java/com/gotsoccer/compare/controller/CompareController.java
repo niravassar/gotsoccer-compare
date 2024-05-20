@@ -22,6 +22,8 @@ import java.util.List;
 public class CompareController {
 
     private final GameService gameService;
+    private static final List<String> authenticatedPasswords
+            = List.of("soccer123", "tcsl123");
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -33,7 +35,11 @@ public class CompareController {
     @PostMapping("/authenticate")
     public String authenticate(@ModelAttribute MyPassword myPassword, Model model) {
         instantiateModelAttributesBlank(model);
-        grantAuthentication(model);
+        if (authenticatedPasswords.contains(myPassword.getPassword())) {
+            grantAuthentication(model);
+        } else {
+            noAuthentication(model);
+        }
         return "upload";
     }
 
@@ -65,7 +71,7 @@ public class CompareController {
     private void grantAuthentication(Model model) {
         model.addAttribute("isPasswordAuthenticated", true);
     }
-    
+
     private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles) throws Exception {
         List<String> filenames = copyFilesToTempDirectory(multipartFiles);
         List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
