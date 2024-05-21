@@ -1,6 +1,7 @@
 package com.gotsoccer.compare.controller;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,8 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
-        model.addAttribute("errorMessage", request.getAttribute(RequestDispatcher.ERROR_EXCEPTION).toString());
+        ServletException exception = (ServletException) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
+        model.addAttribute("errorMessage", exception.getMessage());
         return "error";
     }
 }
