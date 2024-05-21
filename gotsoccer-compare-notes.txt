@@ -143,3 +143,8 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#d
 
 GitHub actions
 =============================
+
+Error Pages
+===================
+Create a custom error page in Spring Boot
+https://www.youtube.com/watch?v=V8bWw7nOIB8
