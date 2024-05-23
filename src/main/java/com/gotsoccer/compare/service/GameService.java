@@ -3,7 +3,6 @@ package com.gotsoccer.compare.service;
 import com.gotsoccer.compare.domain.Game;
 import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.GameValueChange;
-import com.poiji.bind.Poiji;
 import lombok.AllArgsConstructor;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
@@ -11,7 +10,6 @@ import org.javers.core.diff.Diff;
 import org.javers.core.diff.changetype.ValueChange;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

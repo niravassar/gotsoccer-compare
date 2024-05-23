@@ -2,6 +2,7 @@ package com.gotsoccer.compare.controller;
 
 import com.gotsoccer.compare.config.ApplicationNoSecurity;
 import com.gotsoccer.compare.domain.Game;
+import com.gotsoccer.compare.domain.GotSoccerGame;
 import com.gotsoccer.compare.domain.GameChange;
 import com.gotsoccer.compare.domain.ScheduleChanges;
 import com.gotsoccer.compare.service.GameService;
@@ -38,7 +39,7 @@ class CompareControllerTest {
     @Test
     void upload() throws Exception {
         List<GameChange> gameChanges = List.of(GameChange.builder().matchNumber(new Random().nextInt()).build());
-        List<Game> newGames = List.of(Game.builder().matchNumber(new Random().nextInt()).build());
+        List<Game> newGames = List.of(GotSoccerGame.builder().matchNumber(new Random().nextInt()).build());
         ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
         when(this.gameService.compareSchedule(anyString(), anyString(), any())).thenReturn(gameChanges);
         when(this.gameService.compareForNewGames(anyString(), anyString(), any())).thenReturn(newGames);

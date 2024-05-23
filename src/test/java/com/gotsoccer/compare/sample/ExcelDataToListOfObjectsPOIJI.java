@@ -1,6 +1,6 @@
 package com.gotsoccer.compare.sample;
 
-import com.gotsoccer.compare.domain.Game;
+import com.gotsoccer.compare.domain.GotSoccerGame;
 import com.poiji.bind.Poiji;
 
 import java.io.File;
@@ -11,7 +11,7 @@ public class ExcelDataToListOfObjectsPOIJI {
         return Poiji.fromExcel(new File(fileLocation), FoodInfo.class);
     }
 
-    public static List<Game> readGameXls(String fileLocation){
-        return Poiji.fromExcel(new File(fileLocation), Game.class);
+    public static List<GotSoccerGame> readGameXls(String fileLocation){
+        return Poiji.fromExcel(new File(fileLocation), GotSoccerGame.class);
     }
 }
