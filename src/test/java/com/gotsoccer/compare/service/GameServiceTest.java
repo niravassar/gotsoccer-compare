@@ -24,9 +24,11 @@ class GameServiceTest {
     @InjectMocks
     GameService gameService;
 
+    private final ScheduleFormatStrategy gotSoccerScheduleFormatStrategy = new GotSoccerScheduleFormatStrategy();
+
     @Test
     void compareScheduleDetectChanges() {
-        GameChange gameChange =  gameService.compareSchedule(BEFORE_FILE, AFTER_FILE).get(0);
+        GameChange gameChange =  gameService.compareSchedule(BEFORE_FILE, AFTER_FILE, gotSoccerScheduleFormatStrategy).get(0);
         assertThat(gameChange.getMatchNumber()).isEqualTo(139);
         List<GameValueChange> gameValueChanges = gameChange.getGameValueChanges();
         assertThat(gameValueChanges).hasSize(3);
@@ -37,48 +39,48 @@ class GameServiceTest {
 
     @Test
     void compareScheduleNoChanges() {
-        assertThat(gameService.compareSchedule(BEFORE_FILE, BEFORE_FILE)).isEmpty();
+        assertThat(gameService.compareSchedule(BEFORE_FILE, BEFORE_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
     }
 
     @Test
     void compareScheduleAllNew() {
-        assertThat(gameService.compareSchedule(BEFORE_FILE, ALL_NEW_FILE)).isEmpty();
+        assertThat(gameService.compareSchedule(BEFORE_FILE, ALL_NEW_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
     }
 
     @Test
     void compareForNewGamesDetectGame() {
-        Game game = gameService.compareForNewGames(BEFORE_FILE, AFTER_FILE).get(0);
+        Game game = gameService.compareForNewGames(BEFORE_FILE, AFTER_FILE, gotSoccerScheduleFormatStrategy).get(0);
         assertThat(game.getMatchNumber()).isEqualTo(111);
         assertThat(game.getHomeTeam()).isEqualTo("GSSA 14G Longhorms");
     }
 
     @Test
     void compareForNewGamesNoChanges() {
-        assertThat(gameService.compareForNewGames(BEFORE_FILE, BEFORE_FILE)).isEmpty();
+        assertThat(gameService.compareForNewGames(BEFORE_FILE, BEFORE_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
     }
 
     @Test
     void compareForNewGamesAllNew() {
-        List<Game> newGames = gameService.compareForNewGames(BEFORE_FILE, ALL_NEW_FILE);
+        List<Game> newGames = gameService.compareForNewGames(BEFORE_FILE, ALL_NEW_FILE, gotSoccerScheduleFormatStrategy);
         assertThat(newGames).hasSize(4);
     }
 
     @Test
     void compareBeforeToJunk() {
-        assertThat(gameService.compareSchedule(BEFORE_FILE, JUNK_FILE)).isEmpty();
-        assertThat(gameService.compareForNewGames(BEFORE_FILE, JUNK_FILE)).isEmpty();
+        assertThat(gameService.compareSchedule(BEFORE_FILE, JUNK_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
+        assertThat(gameService.compareForNewGames(BEFORE_FILE, JUNK_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
     }
 
     @Test
     void compareJunkToJunk() {
-        assertThat(gameService.compareSchedule(JUNK_FILE, JUNK_FILE)).isEmpty();
-        assertThat(gameService.compareForNewGames(JUNK_FILE, JUNK_FILE)).isEmpty();
+        assertThat(gameService.compareSchedule(JUNK_FILE, JUNK_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
+        assertThat(gameService.compareForNewGames(JUNK_FILE, JUNK_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
     }
 
     @Test
     void compareJunkToBefore() {
-        assertThat(gameService.compareSchedule(JUNK_FILE, BEFORE_FILE)).isEmpty();
-        assertThat(gameService.compareForNewGames(JUNK_FILE, BEFORE_FILE)).hasSize(3);
+        assertThat(gameService.compareSchedule(JUNK_FILE, BEFORE_FILE, gotSoccerScheduleFormatStrategy)).isEmpty();
+        assertThat(gameService.compareForNewGames(JUNK_FILE, BEFORE_FILE, gotSoccerScheduleFormatStrategy)).hasSize(3);
     }
 
 }

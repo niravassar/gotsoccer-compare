@@ -18,8 +18,19 @@
     <div th:style="${isPasswordAuthenticated ? 'display:block;' : 'display:none;'}">
         <h2>Upload Schedules</h2>
         <div>
-            <form method="POST" enctype="multipart/form-data" action="/gotsoccer/upload">
+            <form enctype="multipart/form-data" th:action="@{/gotsoccer/upload}" th:object="${scheduleType}" method="post">
                 <table>
+                    <tr>
+                        <td>
+                            <label for="scheduleType">Type</label>
+                        </td>
+                        <td>
+                            <select th:field="*{value}" id="scheduleType">
+                                <option th:value="'gotSoccer'" th:text="GotSoccer"></option>
+                                <option th:value="'totalGlobalSports'" th:text="TotalGlobalSports"></option>
+                            </select>
+                        </td>
+                    </tr>
                     <tr><td>Before Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
                     <tr><td>After Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
                     <tr><td></td><td><input type="submit" value="Upload" /></td></tr>

@@ -1,10 +1,10 @@
 package com.gotsoccer.compare.controller;
 
-import com.gotsoccer.compare.domain.Game;
-import com.gotsoccer.compare.domain.GameChange;
-import com.gotsoccer.compare.domain.MyPassword;
-import com.gotsoccer.compare.domain.ScheduleChanges;
+import com.gotsoccer.compare.domain.*;
 import com.gotsoccer.compare.service.GameService;
+import com.gotsoccer.compare.service.GotSoccerScheduleFormatStrategy;
+import com.gotsoccer.compare.service.ScheduleFormatStrategy;
+import com.gotsoccer.compare.service.TotalGlobalSportsScheduleFormatStrategy;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,10 +20,12 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class CompareController {
-
-    private final GameService gameService;
     private static final List<String> authenticatedPasswords
             = List.of("soccer123", "tcsl123");
+
+    private final GameService gameService;
+
+    private final ScheduleFormatStrategy gotSoccerScheduleFormatStrategy = new GotSoccerScheduleFormatStrategy();
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -45,8 +47,10 @@ public class CompareController {
 
 
     @PostMapping("/gotsoccer/upload")
-    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, Model model) throws Exception {
-        ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles);
+    public String upload(@RequestParam("files") List<MultipartFile> multipartFiles, @ModelAttribute ScheduleType scheduleType,
+                         Model model) throws Exception {
+        ScheduleFormatStrategy scheduleFormatStrategy = determineScheduleFormat(scheduleType);
+        ScheduleChanges scheduleChanges = generateScheduleChanges(multipartFiles, scheduleFormatStrategy);
         model.addAttribute("scheduleChanges", scheduleChanges);
         model.addAttribute("myPassword", MyPassword.builder().build());
         grantAuthentication(model);
@@ -56,12 +60,13 @@ public class CompareController {
     @PostMapping("/gotsoccer/upload-rest")
     @ResponseBody
     public ScheduleChanges uploadRest(@RequestParam("files") List<MultipartFile> multipartFiles) throws Exception {
-        return generateScheduleChanges(multipartFiles);
+        return generateScheduleChanges(multipartFiles, new GotSoccerScheduleFormatStrategy());
     }
 
     private void instantiateModelAttributesBlank(Model model) {
         model.addAttribute("scheduleChanges", ScheduleChanges.builder().build());
         model.addAttribute("myPassword", MyPassword.builder().build());
+        model.addAttribute("scheduleType", ScheduleType.builder().build());
     }
 
     private void noAuthentication(Model model) {
@@ -72,10 +77,10 @@ public class CompareController {
         model.addAttribute("isPasswordAuthenticated", true);
     }
 
-    private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles) throws Exception {
+    private ScheduleChanges generateScheduleChanges(List<MultipartFile> multipartFiles, ScheduleFormatStrategy scheduleFormatStrategy) throws Exception {
         List<String> filenames = copyFilesToTempDirectory(multipartFiles);
-        List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1));
-        List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1));
+        List<GameChange> gameChanges = this.gameService.compareSchedule(filenames.get(0), filenames.get(1), scheduleFormatStrategy);
+        List<Game> newGames = this.gameService.compareForNewGames(filenames.get(0), filenames.get(1), scheduleFormatStrategy);
         return ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
     }
 
@@ -89,5 +94,9 @@ public class CompareController {
             filenames.add(filename);
         }
         return filenames;
+    }
+
+    private ScheduleFormatStrategy determineScheduleFormat(ScheduleType scheduleType) {
+        return scheduleType.getValue().equals("gotSoccer") ?  new GotSoccerScheduleFormatStrategy() : new TotalGlobalSportsScheduleFormatStrategy();
     }
 }

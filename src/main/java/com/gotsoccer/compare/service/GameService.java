@@ -19,9 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 public class GameService {
 
-    public List<GameChange> compareSchedule(String beforeFileName, String afterFileName) {
-        List<Game> beforeGames = getGamesWithPoiji(beforeFileName);
-        List<Game> afterGames = getGamesWithPoiji(afterFileName);
+    public List<GameChange> compareSchedule(String beforeFileName, String afterFileName, ScheduleFormatStrategy scheduleFormatStrategy) {
+        List<Game> beforeGames = scheduleFormatStrategy.getGamesWithPoiji(beforeFileName);
+        List<Game> afterGames = scheduleFormatStrategy.getGamesWithPoiji(afterFileName);
         List<GameChange> gameChanges = new ArrayList<>();
 
         for (Game game : beforeGames) {
@@ -33,9 +33,9 @@ public class GameService {
         return gameChanges;
     }
 
-    public List<Game> compareForNewGames(String beforeFileName, String afterFileName) {
-        List<Game> beforeGames = getGamesWithPoiji(beforeFileName);
-        List<Game> afterGames = getGamesWithPoiji(afterFileName);
+    public List<Game> compareForNewGames(String beforeFileName, String afterFileName, ScheduleFormatStrategy scheduleFormatStrategy) {
+        List<Game> beforeGames = scheduleFormatStrategy.getGamesWithPoiji(beforeFileName);
+        List<Game> afterGames = scheduleFormatStrategy.getGamesWithPoiji(afterFileName);
         List<Game> newGames = new ArrayList<>();
 
         for (Game afterGame : afterGames) {
@@ -63,9 +63,5 @@ public class GameService {
                     .toList();
             gameChanges.add(new GameChange(game.getMatchNumber(), gameValueChanges));
         }
-    }
-
-    private List<Game> getGamesWithPoiji(String filename) {
-        return Poiji.fromExcel(new File(filename), Game.class);
     }
 }

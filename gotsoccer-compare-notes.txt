@@ -121,7 +121,7 @@ powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 - https://fly.io/apps/gotsoccer-compare-young-glade-7918/monitoring
 	- fly logs -a gotsoccer-compare-young-glade-7918
 
-- https://gotsoccer-compare-young-glade-7918.fly.dev/index
+- https://gotsoccer-compare-young-glade-7918.fly.dev/	index
 
 Deployment Options
 ========================
@@ -150,3 +150,7 @@ Create a custom error page in Spring Boot
 https://www.youtube.com/watch?v=V8bWw7nOIB8
 
 - could not write the validation check for number of files bc cant really mock the mulitpart files to be an empty file or a file without a name.
+
+Refactor for TGS with logic
+=================================
+- created a patch which has teh lamda for the poiji call for the type of schedule we are going to parse

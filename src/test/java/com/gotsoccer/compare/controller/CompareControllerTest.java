@@ -40,19 +40,22 @@ class CompareControllerTest {
         List<GameChange> gameChanges = List.of(GameChange.builder().matchNumber(new Random().nextInt()).build());
         List<Game> newGames = List.of(Game.builder().matchNumber(new Random().nextInt()).build());
         ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
-        when(this.gameService.compareSchedule(anyString(), anyString())).thenReturn(gameChanges);
-        when(this.gameService.compareForNewGames(anyString(), anyString())).thenReturn(newGames);
+        when(this.gameService.compareSchedule(anyString(), anyString(), any())).thenReturn(gameChanges);
+        when(this.gameService.compareForNewGames(anyString(), anyString(), any())).thenReturn(newGames);
         MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule.xls");
         MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-rainout.xls");
 
-        mockMvc.perform(multipart("/gotsoccer/upload").file(beforeMpfGames).file(afterMpfGames))
+        mockMvc.perform(multipart("/gotsoccer/upload")
+                        .file(beforeMpfGames)
+                        .file(afterMpfGames)
+                        .param("value", "gotSoccer"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("upload"))
                 .andExpect(model().attribute("scheduleChanges", IsEqual.equalToObject(expectedScheduledChanges)))
                 .andReturn();
 
-        verify(this.gameService, times(1)).compareSchedule(anyString(), anyString());
-        verify(this.gameService, times(1)).compareForNewGames(anyString(), anyString());
+        verify(this.gameService, times(1)).compareSchedule(anyString(), anyString(), any());
+        verify(this.gameService, times(1)).compareForNewGames(anyString(), anyString(), any());
     }
 
     @Test
