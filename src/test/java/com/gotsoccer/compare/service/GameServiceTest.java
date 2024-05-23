@@ -27,7 +27,7 @@ class GameServiceTest {
     private final ScheduleFormatStrategy gotSoccerScheduleFormatStrategy = new GotSoccerScheduleFormatStrategy();
 
     @Test
-    void compareScheduleDetectChanges() {
+    void compareScheduleDetectChanges_GS() {
         GameChange gameChange =  gameService.compareSchedule(BEFORE_FILE, AFTER_FILE, gotSoccerScheduleFormatStrategy).get(0);
         assertThat(gameChange.getMatchNumber()).isEqualTo(139);
         List<GameValueChange> gameValueChanges = gameChange.getGameValueChanges();
@@ -48,7 +48,7 @@ class GameServiceTest {
     }
 
     @Test
-    void compareForNewGamesDetectGame() {
+    void compareForNewGamesDetectGame_GS() {
         Game game = gameService.compareForNewGames(BEFORE_FILE, AFTER_FILE, gotSoccerScheduleFormatStrategy).get(0);
         assertThat(game.getMatchNumber()).isEqualTo(111);
         assertThat(game.getHomeTeam()).isEqualTo("GSSA 14G Longhorms");
