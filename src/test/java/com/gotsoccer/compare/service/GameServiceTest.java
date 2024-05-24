@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameServiceTest {
 
     final String TEST_FILE_PATH = "src/test/resources";
-    final String BEFORE_FILE = TEST_FILE_PATH + "/schedule.xls";
-    final String AFTER_FILE = TEST_FILE_PATH + "/schedule-rainout.xls";
-    final String ALL_NEW_FILE = TEST_FILE_PATH + "/schedule-allnew.xls";
+    final String BEFORE_FILE = TEST_FILE_PATH + "/schedule-gs-before.xls";
+    final String AFTER_FILE = TEST_FILE_PATH + "/schedule-gs-after.xls";
+    final String ALL_NEW_FILE = TEST_FILE_PATH + "/schedule-gs-allnew.xls";
     final String JUNK_FILE = TEST_FILE_PATH + "/junk.xls";
 
     @InjectMocks

@@ -43,8 +43,8 @@ class CompareControllerTest {
         ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();
         when(this.gameService.compareSchedule(anyString(), anyString(), any())).thenReturn(gameChanges);
         when(this.gameService.compareForNewGames(anyString(), anyString(), any())).thenReturn(newGames);
-        MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule.xls");
-        MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-rainout.xls");
+        MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule-gs-before.xls");
+        MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-gs-after.xls");
 
         mockMvc.perform(multipart("/gotsoccer/upload")
                         .file(beforeMpfGames)

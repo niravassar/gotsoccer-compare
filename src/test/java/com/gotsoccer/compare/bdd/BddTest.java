@@ -25,8 +25,8 @@ class BddTest {
 
     @Test
     void upload() throws Exception {
-        MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule.xls");
-        MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-rainout.xls");
+        MockMultipartFile beforeMpfGames = MockUtils.createMockMultipartFile("schedule-gs-before.xls");
+        MockMultipartFile afterMpfGames = MockUtils.createMockMultipartFile("schedule-gs-after.xls");
 
         MvcResult mvcResult = mockMvc.perform(multipart("/gotsoccer/upload-rest").file(beforeMpfGames).file(afterMpfGames)).andExpect(status().isOk()).andReturn();
 

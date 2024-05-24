@@ -50,8 +50,8 @@ public class PoiijiPocTest {
 
     @Test
     public void compareByGameIdNumberDifference_gameChanges() {
-        List<GotSoccerGame> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule.xls");
-        List<GotSoccerGame> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-rainout.xls");
+        List<GotSoccerGame> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-gs-before.xls");
+        List<GotSoccerGame> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-gs-after.xls");
         Javers javers = JaversBuilder.javers().build();
         List<ValueChange> valueChanges = new ArrayList<>();
 
@@ -68,8 +68,8 @@ public class PoiijiPocTest {
 
     @Test
     public void compareByGameIdNumber_newGames() {
-        List<GotSoccerGame> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule.xls");
-        List<GotSoccerGame> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-rainout.xls");
+        List<GotSoccerGame> schedule = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-gs-before.xls");
+        List<GotSoccerGame> scheduleRainout = ExcelDataToListOfObjectsPOIJI.readGameXls("src/test/resources/schedule-gs-after.xls");
         List<GotSoccerGame> newGames = new ArrayList<>();
         for (GotSoccerGame rainGame : scheduleRainout) {
             GotSoccerGame matchedGame = schedule.stream().filter(game -> game.getMatchNumber() == rainGame.getMatchNumber()).findFirst().orElse(null);
