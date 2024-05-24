@@ -121,7 +121,7 @@ powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 - https://fly.io/apps/gotsoccer-compare-young-glade-7918/monitoring
 	- fly logs -a gotsoccer-compare-young-glade-7918
 
-- https://gotsoccer-compare-young-glade-7918.fly.dev/	index
+- https://gotsoccer-compare-young-glade-7918.fly.dev/index
 
 Deployment Options
 ========================

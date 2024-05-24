@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<style>
+    * {font-family: sans-serif;}
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>Gotsoccer Compare</title>
 </head>
 
-<body style="background-color:lightgreen;">
+<body style="background-color:lightgreen; font-family:Palatino;" >
     <h2>Authenticate</h2>
     <form action="#" th:action="@{/authenticate}" th:object="${myPassword}" method="post">
         <p>Password: <input type="text" th:field="*{password}" /></p>
