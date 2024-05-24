@@ -37,7 +37,7 @@ class CompareControllerTest {
     private GameService gameService;
 
     @Test
-    void upload() throws Exception {
+    void upload_GS() throws Exception {
         List<GameChange> gameChanges = List.of(GameChange.builder().matchNumber(new Random().nextInt()).build());
         List<Game> newGames = List.of(GotSoccerGame.builder().matchNumber(new Random().nextInt()).build());
         ScheduleChanges expectedScheduledChanges = ScheduleChanges.builder().gameChanges(gameChanges).newGames(newGames).build();

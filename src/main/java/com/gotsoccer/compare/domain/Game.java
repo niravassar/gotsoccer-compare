@@ -9,4 +9,5 @@ public interface Game {
     String getDivision();
     int getAge();
     String getLocation();
+    String getVenue ();
 }

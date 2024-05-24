@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GotSoccerGame implements Game {
-    @ExcelCellName("Match #")
+public class TotalGlobalSportsGame implements Game {
+    @ExcelCellName("GM#")
     private int matchNumber;
     @ExcelCellName("Date")
     private String date;
@@ -25,11 +25,8 @@ public class GotSoccerGame implements Game {
     private String division;
     @ExcelCellName("Age")
     private int age;
-    @ExcelCellName("Location")
+    @ExcelCellName("Complex")
     private String location;
-
-    @Override
-    public String getVenue() {
-        return null;
-    }
+    @ExcelCellName("Venue")
+    private String venue;
 }

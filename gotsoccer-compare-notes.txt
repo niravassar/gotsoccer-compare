@@ -154,3 +154,4 @@ https://www.youtube.com/watch?v=V8bWw7nOIB8
 Refactor for TGS with logic
 =================================
 - created a patch which has teh lamda for the poiji call for the type of schedule we are going to parse
+- [] need to to do end to end testing
