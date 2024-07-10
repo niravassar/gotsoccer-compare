@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GotSoccerGame implements Game {
-    @ExcelCellName("Match #")
+    @ExcelCellName("Match Number")
     private int matchNumber;
     @ExcelCellName("Date")
     private String date;
-    @ExcelCellName("Time")
+    @ExcelCellName("Start Time")
     private String time;
     @ExcelCellName("Home Team")
     private String homeTeam;

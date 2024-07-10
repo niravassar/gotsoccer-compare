@@ -35,8 +35,8 @@
                             </select>
                         </td>
                     </tr>
-                    <tr><td>Before Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
-                    <tr><td>After Games:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
+                    <tr><td>Before Rainout:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
+                    <tr><td>After Rainout:</td><td><span style="color:red"><input type="file" name="files"/></span></td></tr>
                     <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
                 </table>
             </form>
@@ -50,7 +50,7 @@
                 <h4 th:text="'Match #: ' + ${gameChange.matchNumber}"></h4>
                 <table border="1">
                     <tr>
-                        <th>Column Name</th><th>Before</th><th>After</th>
+                        <th>Column Name</th><th>Before Rainout</th><th>After Rainout</th>
                     </tr>
                     <tr th:each="gameValueChange : ${gameChange.gameValueChanges}">
                         <td th:text="${gameValueChange.columnName}" /><td th:text="${gameValueChange.before}" /><td th:text="${gameValueChange.after}" />
